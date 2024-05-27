@@ -11,6 +11,8 @@ import Driking1 from "./assets/refri-2.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -23,10 +25,15 @@ function App() {
   }, [cart, total])
 
   const addToCart = (name: string, price: number, quantity: number) => {
+
+    toast.success('Produto adicionado ao carrinho com sucesso!', {
+      position: 'top-right',
+    });
+
     const verificQuantity = cart.findIndex((c: string | any) => c.name === name);
     if (verificQuantity !== -1) {
       const updatedCart = cart.map((item: any, index: number) =>
-        index === verificQuantity ? { ...item, quantity: item.quantity + quantity} : item
+        index === verificQuantity ? { ...item, quantity: item.quantity + quantity } : item
       );
       setCart(updatedCart);
       return;
@@ -54,7 +61,7 @@ function App() {
 
   return (
     <>
-
+      <ToastContainer />
       <header className="w-full h-[420px] bg-zinc-900 bg-home bg-cover bg-center">
         <div className="w-full h-full flex flex-col justify-center items-center">
           <img src={Logo}
